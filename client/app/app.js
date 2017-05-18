@@ -16,7 +16,6 @@ import { providers } from './app.config';
 
 import _Auth from '../components/auth/auth.module';
 import account from './account';
-import admin from './admin';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import mongooseError from '../components/mongoose-error/mongoose-error.directive';
@@ -33,7 +32,7 @@ import UsersViewComponent from './users-view/users-view.component';
 import './app.less';
 
 angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth, mongooseError,
-    account, admin, navbar, footer, main, constants, util,
+    account, navbar, footer, main, constants, util,
     UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
   ])
   .config(providers)

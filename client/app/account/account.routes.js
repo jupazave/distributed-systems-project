@@ -27,11 +27,5 @@ export default function routes($stateProvider) {
       controller: 'SettingsController',
       controllerAs: 'ctrl',
       authenticate: true
-    })
-    .state('recover', {
-      url: '/recover',
-      template: require('./recover/recover.html'),
-      controller: 'RecoverController',
-      controllerAs: 'vm'
     });
 }

@@ -46,7 +46,6 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       getAssociations: () => {
         return {
-          }
         }
       }
     },
