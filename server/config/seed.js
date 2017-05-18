@@ -14,7 +14,7 @@ User.sync()
       provider: 'local',
       role: 'admin',
       name: 'Admin',
-      email: 'jpablo@makerlab.mx',
+      email: 'admin@admin.mx',
       password: 'admin'
     }])
     .then(() => {
