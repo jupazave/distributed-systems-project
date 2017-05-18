@@ -28,12 +28,17 @@ import UsersNewComponent from './users-new/users-new.component';
 import UsersEditComponent from './users-edit/users-edit.component';
 import UsersViewComponent from './users-view/users-view.component';
 
+// services
+
+import TopicService from './../services/topic.services';
+
 
 import './app.less';
 
 angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth, mongooseError,
     account, navbar, footer, main, constants, util,
     UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
+    TopicService
   ])
   .config(providers)
   .run(function($rootScope, $location, Auth) {
