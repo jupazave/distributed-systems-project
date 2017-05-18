@@ -10,6 +10,12 @@ import path from 'path';
 export default function(app) {
   // Insert routes below
 
+  app.use('/api/v1/topics', require('./api/v1/topic'));
+  app.use('/api/v1/concepts', require('./api/v1/concept'));
+  //app.use('/api/v1/journals', require('./api/v1/journal'));
+
+
+
   app.use('/api/v1/users', require('./api/v1/user'));
   app.use('/api/auth', require('./api/auth').default);
 

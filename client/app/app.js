@@ -30,7 +30,7 @@ import UsersViewComponent from './users-view/users-view.component';
 
 // services
 
-import TopicService from './../services/topic.services';
+import TopicService from '../services/topic.service';
 
 
 import './app.less';

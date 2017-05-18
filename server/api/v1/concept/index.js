@@ -1,17 +1,17 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./brand.controller');
-import {isAdmin} from './../policies';
+var controller = require('./concept.controller');
+
 import {isAuthenticated} from './../../auth/auth.service';
 
 var router = express.Router();
 
 router.get('/', isAuthenticated(), controller.index);
-router.get('/:id', isAdmin(), controller.show);
-router.post('/', isAdmin(), controller.create);
-router.put('/:id', isAdmin(), controller.upsert);
-router.patch('/:id', isAdmin(), controller.patch);
-router.delete('/:id', isAdmin(), controller.destroy);
+router.get('/:id', isAuthenticated(), controller.show);
+router.post('/', isAuthenticated(), controller.create);
+router.put('/:id', isAuthenticated(), controller.edit);
+router.patch('/:id', isAuthenticated(), controller.edit);
+router.delete('/:id', isAuthenticated(), controller.destroy);
 
 module.exports = router;

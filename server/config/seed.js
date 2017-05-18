@@ -5,7 +5,6 @@
 
 'use strict';
 import {User} from '../sqldb';
-import log from './../services/log.service';
 
 User.sync()
   .then(() => User.destroy({ where: {} }))
@@ -18,7 +17,7 @@ User.sync()
       password: 'admin'
     }])
     .then(() => {
-      log.debug('finished populating users');
+      console.log('finished populating users');
     });
   });
 

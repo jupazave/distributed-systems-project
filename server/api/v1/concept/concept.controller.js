@@ -1,47 +1,51 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/v1/brands              ->  index
- * POST    /api/v1/brands              ->  create
- * GET     /api/v1/brands/:id          ->  show
- * PUT     /api/v1/brands/:id          ->  upsert
- * PATCH   /api/v1/brands/:id          ->  patch
- * DELETE  /api/v1/brands/:id          ->  destroy
+ * GET     /api/v1/concepts              ->  index
+ * POST    /api/v1/concepts              ->  create
+ * GET     /api/v1/concepts/:id          ->  show
+ * PUT     /api/v1/concepts/:id          ->  edit
+ * PATCH   /api/v1/concepts/:id          ->  edit
+ * DELETE  /api/v1/concepts/:id          ->  destroy
  */
 
 'use strict';
 
 import jsonpatch from 'fast-json-patch';
-import {Brand, Smartcontroldef} from '../../../sqldb';
-import log from './../../../libraries/Log';
-import { _Error } from './../../../libraries/Error';
+import {Topic, Concept, User} from '../../../sqldb';
 import { handleError } from './../utils';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
-  return function(entity) {
-    if(entity) {
-      return res.status(statusCode).json(entity);
+  return function(concept) {
+    if(concept) {
+      return res.status(statusCode).json(concept);
     }
     return null;
   };
 }
 
 function patchUpdates(patches) {
-  return function(entity) {
+  return function(concept) {
     try {
-      for (let key in patches) entity[key] = patches[key];
+      for (let key in patches) concept[key] = patches[key];
     } catch(err) {
       return Promise.reject(err);
     }
 
-    return entity.save();
+    return concept.save();
   };
 }
 
-function removeEntity(res) {
-  return function(entity) {
-    if(entity) {
-      return entity.destroy()
+function removeEntity(req, res) {
+  return function(concept) {
+    if(concept) {
+
+      let user_id = req.user.id;
+
+      //if(concept.Concept.length > 0) return res.status(403).json({error: 'Concept has concepts'}).end();
+      if(concept.user_id != user_id) return res.status(403).json({error: 'Concept does not belongs to you'}).end();
+
+      return concept.destroy()
         .then(() => {
           res.status(204).end();
         });
@@ -50,24 +54,24 @@ function removeEntity(res) {
 }
 
 function handleEntityNotFound(res) {
-  return function(entity) {
-    if(!entity) {
-      throw new _Error('notFound', "Brand not found");
+  return function(concept) {
+    if(!concept) {
+      throw new {msg: "Concept Not found", error: "notfound"}
     }
-    return entity;
+    return concept;
   };
 }
 
-// Gets a list of Brands
+// Gets a list of Concepts
 export function index(req, res) {
-  return Brand.findAll({ include: [{ model: Smartcontroldef, attributes: ['id', 'model']}]})
+  return Concept.findAll()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Brand from the DB
+// Gets a single Concept from the DB
 export function show(req, res) {
-  return Brand.find({
+  return Concept.find({
     where: {
       id: req.params.id
     }
@@ -77,34 +81,23 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-// Creates a new Brand in the DB
+// Creates a new Concept in the DB
 export function create(req, res) {
-  return Brand.create(req.body)
+
+  let body = req.body;
+
+  body.user_id = req.user.id;
+
+  return Concept.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Brand in the DB at the specified ID
-export function upsert(req, res) {
-  if(req.body.id) {
-    delete req.body.id;
-  }
+// Updates an existing Concept in the DB
+export function edit(req, res) {
+  if(req.body.id) delete req.body.id;
 
-  return Brand.upsert(req.body, {
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(respondWithResult(res))
-    .catch(handleError(res));
-}
-
-// Updates an existing Brand in the DB
-export function patch(req, res) {
-  if(req.body.id) {
-    delete req.body.id;
-  }
-  return Brand.find({
+  return Concept.find({
     where: {
       id: req.params.id
     }
@@ -115,14 +108,14 @@ export function patch(req, res) {
     .catch(handleError(res));
 }
 
-// Deletes a Brand from the DB
+// Deletes a Concept from the DB
 export function destroy(req, res) {
-  return Brand.find({
+  return Concept.find({
     where: {
       id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))
-    .then(removeEntity(res))
+    .then(removeEntity(req, res))
     .catch(handleError(res));
 }

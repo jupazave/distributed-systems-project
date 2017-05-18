@@ -10,7 +10,7 @@ export default function(sequelize, DataTypes) {
     },
     type: DataTypes.ENUM('topic', 'concept'),
     action: DataTypes.ENUM('new', 'edit', 'delete'),
-    modified_at: DataTypes.DATETIME
+    modified_at: DataTypes.DATE
   },{
     classMethods: {
       getAssociations: () => {

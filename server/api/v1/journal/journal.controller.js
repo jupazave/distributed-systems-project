@@ -12,8 +12,6 @@
 
 import jsonpatch from 'fast-json-patch';
 import {Brand, Smartcontroldef} from '../../../sqldb';
-import log from './../../../libraries/Log';
-import { _Error } from './../../../libraries/Error';
 import { handleError } from './../utils';
 
 function respondWithResult(res, statusCode) {
