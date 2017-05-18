@@ -8,10 +8,10 @@ import {isAuthenticated} from './../../auth/auth.service';
 var router = express.Router();
 
 router.get('/', isAuthenticated(), controller.index);
-router.get('/:id', isAdmin(), controller.show);
-router.post('/', isAdmin(), controller.create);
-router.put('/:id', isAdmin(), controller.upsert);
-router.patch('/:id', isAdmin(), controller.patch);
-router.delete('/:id', isAdmin(), controller.destroy);
+router.get('/:id', isAuthenticated(), controller.show);
+router.post('/', isAuthenticated(), controller.create);
+router.put('/:id', isAuthenticated(), controller.edit);
+router.patch('/:id', isAuthenticated(), controller.edit);
+router.delete('/:id', isAuthenticated(), controller.destroy);
 
 module.exports = router;
