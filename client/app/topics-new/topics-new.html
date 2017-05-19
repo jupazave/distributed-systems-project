@@ -6,7 +6,7 @@
         <div class="form-group" ng-class="{'has-error':  (form.name.$error.required || form.name.$error.mongoose) && (form.name.$dirty || ctrl.submitted) }">
           <label for="name" class="col-sm-2 control-label">Nombre del Tema</label>
           <div class="col-sm-10">
-            <input type="text" ng-model="ctrl.group.name" class="form-control" id="name" name="name" placeholder="Nombre del Tema" mongoose-error />
+            <input type="text" ng-model="ctrl.topic.name" class="form-control" id="name" name="name" placeholder="Nombre del Tema" mongoose-error />
             <p class="help-block" ng-show="(form.name.$error.required || form.name.$error.mongoose) && (form.name.$dirty || ctrl.submitted)">
               {{ ctrl.errors.name }}
             </p>

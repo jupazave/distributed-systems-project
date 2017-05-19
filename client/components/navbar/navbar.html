@@ -13,7 +13,7 @@
     <div uib-collapse="$ctrl.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-repeat="item in $ctrl.menu" ui-sref-active="active">
-            <a ng-show="$ctrl.isLoggedIn() && (($ctrl.isAdmin() && item.admin) || (!$ctrl.isAdmin() && item.user))" ui-sref="{{item.state}}">{{item.title}}</a>
+            <a ng-show="$ctrl.isLoggedIn()" ui-sref="{{item.state}}">{{item.title}}</a>
         </li>
       </ul>
 
