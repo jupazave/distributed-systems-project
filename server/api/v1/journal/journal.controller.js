@@ -25,6 +25,7 @@ function respondWithResult(res, statusCode) {
 }
 
 
+
 function handleEntityNotFound(res) {
   return function(topic) {
     if(!topic) {
@@ -36,7 +37,9 @@ function handleEntityNotFound(res) {
 
 // Gets a list of Journals
 export function index(req, res) {
-  return Journal.findAll()
+  return Journal.findAll({
+    include: [{model: User, attributes: ['name', 'email'] }]
+  })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -46,7 +49,8 @@ export function show(req, res) {
   return Journal.find({
     where: {
       id: req.params.id
-    }
+    },
+    include: [{model: User, attributes: ['name', 'email'] }]
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))

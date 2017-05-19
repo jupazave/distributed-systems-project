@@ -9,6 +9,7 @@ import path from 'path';
 
 var topics = require('./api/v1/topic/topic.controller');
 var concepts = require('./api/v1/concept/concept.controller');
+var journals = require('./api/v1/journal/journal.controller');
 
 import {isAuthenticated} from './api/auth/auth.service';
 
@@ -28,6 +29,10 @@ export default function(app) {
   app.put('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.edit);
   app.patch('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.edit);
   app.delete('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.destroy);
+
+
+  app.get('/api/v1/journals', isAuthenticated(), journals.index);
+  app.get('/api/v1/journals/:id', isAuthenticated(), journals.show);
 
   //app.use('/api/v1/journals', require('./api/v1/journal'));
 

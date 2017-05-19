@@ -8,6 +8,7 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    name: DataTypes.STRING,
     type: DataTypes.ENUM('topic', 'concept'),
     action: DataTypes.ENUM('new', 'edit', 'delete'),
     modified_at: DataTypes.DATE

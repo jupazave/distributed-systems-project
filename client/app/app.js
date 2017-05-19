@@ -35,10 +35,12 @@ import TopicsViewComponent from './topics-view/topics-view.component';
 import ConceptsNewComponent from './concepts-new/concepts-new.component';
 import ConceptsEditComponent from './concepts-edit/concepts-edit.component';
 
+import JournalComponent from './journals/journals.component';
 // services
 
 import TopicService from '../services/topic.service';
 import ConceptService from '../services/concept.service';
+import JournalService from '../services/journal.service';
 
 
 import './app.less';
@@ -47,9 +49,10 @@ angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, u
     account, navbar, footer, main, constants, util,
     UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
     TopicsComponent, TopicsNewComponent, TopicsEditComponent, TopicsViewComponent,
-    ConceptsNewComponent, ConceptsEditComponent,
+    ConceptsNewComponent, ConceptsEditComponent, JournalComponent,
     TopicService,
-    ConceptService
+    ConceptService,
+    JournalService
   ])
   .config(providers)
   .run(function($rootScope, $location, Auth) {

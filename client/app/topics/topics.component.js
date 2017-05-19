@@ -29,7 +29,7 @@ export class TopicsComponent {
 
 }
 
-export default angular.module('distributedApp.groups', [uiRouter])
+export default angular.module('distributedApp.topics', [uiRouter])
   .config(routes)
   .component('topics', {
     template: require('./topics.html'),
