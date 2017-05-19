@@ -18,6 +18,9 @@ let models = {}
 
 // Insert models below
 models.User = db.sequelize.import('../api/v1/user/user.model');
+models.Topic = db.sequelize.import('../api/v1/topic/topic.model');
+models.Concept = db.sequelize.import('../api/v1/concept/concept.model');
+models.Journal = db.sequelize.import('../api/v1/journal/journal.model');
 
 let models_arry = Object.keys(models).map((k) => models[k]);
 

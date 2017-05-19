@@ -27,11 +27,7 @@ export default class LoginController {
         password: this.user.password
       })
         .then((user) => {
-          if (user.role === 'admin') {
-            return this.$state.go('devices');
-          } else {
-            return this.$state.go('groups');
-          }
+          return this.$state.go('main');
         })
         .catch(err => {
           this.errors.login = err.message;

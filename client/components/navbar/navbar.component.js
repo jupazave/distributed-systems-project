@@ -9,6 +9,18 @@ export class NavbarComponent {
     state: 'users',
     admin: true,
     user: false
+  },
+  {
+    title: 'Temas',
+    state: 'topics',
+    admin: true,
+    user: false
+  },
+  {
+    title: 'Bitacora',
+    state: 'journals',
+    admin: true,
+    user: false
   }];
 
   isCollapsed = true;
