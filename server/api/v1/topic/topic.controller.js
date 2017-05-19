@@ -25,7 +25,7 @@ function respondWithResult(res, statusCode) {
   };
 }
 
-function patchUpdates(patches) {
+function patchUpdates(patches, user_id) {
   return function(topic) {
     try {
       for (let key in patches) topic[key] = patches[key];
@@ -100,13 +100,15 @@ export function create(req, res) {
 export function edit(req, res) {
   if(req.body.id) delete req.body.id;
 
+  let user_id = req.user.id;
+
   return Topic.find({
     where: {
       id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))
-    .then(patchUpdates(req.body))
+    .then(patchUpdates(req.body, user_id))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

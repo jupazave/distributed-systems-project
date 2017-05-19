@@ -105,13 +105,15 @@ export function create(req, res) {
 export function edit(req, res) {
   if(req.body.id) delete req.body.id;
 
+  let user_id = req.user.id;
+
   return Concept.find({
     where: {
       id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))
-    .then(patchUpdates(req.body))
+    .then(patchUpdates(req.body, user_id))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -126,4 +128,38 @@ export function destroy(req, res) {
     .then(handleEntityNotFound(res))
     .then(removeEntity(req, res))
     .catch(handleError(res));
+}
+
+/**
+ * Lock Concept
+ */
+export function lock(req, res) {
+
+  return Concept.find({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(concept => {
+      concept.editable = false;
+      return concept.save();
+    }).then(res.status(204).end())
+    .catch(validationError(res));
+}
+
+/**
+ * Un Lock Concept
+ */
+export function unlock(req, res) {
+
+  return Concept.find({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(concept => {
+      concept.editable = true;
+      return concept.save();
+    }).then(res.status(204).end())
+    .catch(validationError(res));
 }

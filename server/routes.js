@@ -25,6 +25,8 @@ export default function(app) {
 
   app.get('/api/v1/topics/:topic_id/concepts', isAuthenticated(), concepts.index);
   app.get('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.show);
+  app.get('/api/v1/topics/:topic_id/concepts/:id/lock', isAuthenticated(), concepts.lock);
+  app.get('/api/v1/topics/:topic_id/concepts/:id/unlock', isAuthenticated(), concepts.unlock);
   app.post('/api/v1/topics/:topic_id/concepts', isAuthenticated(), concepts.create);
   app.put('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.edit);
   app.patch('/api/v1/topics/:topic_id/concepts/:id', isAuthenticated(), concepts.edit);
