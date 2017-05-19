@@ -13,6 +13,7 @@
 import jsonpatch from 'fast-json-patch';
 import {Topic, Concept, User} from '../../../sqldb';
 import { handleError } from './../utils';
+import JournalService from "./../../services/JournalService";
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -32,6 +33,7 @@ function patchUpdates(patches) {
       return Promise.reject(err);
     }
 
+    JournalService.topicAction(user_id, 'edit', topic.name, topic.id);
     return topic.save();
   };
 }
@@ -44,6 +46,8 @@ function removeEntity(req, res) {
 
       if(topic.Concepts.length > 0) return res.status(403).json({error: 'Topic has concepts'}).end();
       // if(topic.user_id != user_id) return res.status(403).json({error: 'Topic dows not belongs to you'}).end();
+
+      JournalService.topicAction(user_id, 'delete', topic.name, topic.id);
 
       return topic.destroy()
         .then(() => {
@@ -84,6 +88,10 @@ export function show(req, res) {
 // Creates a new Topic in the DB
 export function create(req, res) {
   return Topic.create(req.body)
+    .then((topic) => {
+      JournalService.topicAction(req.user.id, 'new', topic.name, topic.id);
+      return topic;
+    })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }

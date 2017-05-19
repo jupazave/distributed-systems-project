@@ -13,6 +13,7 @@
 import jsonpatch from 'fast-json-patch';
 import {Topic, Concept, User} from '../../../sqldb';
 import { handleError } from './../utils';
+import JournalService from "./../../services/JournalService";
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -24,7 +25,7 @@ function respondWithResult(res, statusCode) {
   };
 }
 
-function patchUpdates(patches) {
+function patchUpdates(patches, user_id) {
   return function(concept) {
     try {
       for (let key in patches) concept[key] = patches[key];
@@ -32,6 +33,7 @@ function patchUpdates(patches) {
       return Promise.reject(err);
     }
 
+    JournalService.conceptAction(user_id, 'edit', concept.name, concept.id);
     return concept.save();
   };
 }
@@ -44,6 +46,9 @@ function removeEntity(req, res) {
 
       //if(concept.Concept.length > 0) return res.status(403).json({error: 'Concept has concepts'}).end();
       if(concept.user_id != user_id) return res.status(403).json({error: 'Concept does not belongs to you'}).end();
+
+      JournalService.conceptAction(user_id, 'delete', concept.name, concept.id);
+
 
       return concept.destroy()
         .then(() => {
@@ -85,10 +90,13 @@ export function show(req, res) {
 export function create(req, res) {
 
   let body = req.body;
-
   body.user_id = req.user.id;
 
-  return Concept.create(req.body)
+  return Concept.create(body)
+    .then((concept) => {
+      JournalService.conceptAction(req.user.id, 'new', concept.name, concept.id);
+      return concept;
+    })
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
