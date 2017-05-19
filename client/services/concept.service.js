@@ -6,6 +6,7 @@ export function conceptService($resource) {
   return $resource('/api/v1/topics/:topic_id/concepts/:id/:controller', { id:'@id', topic_id:'@topic_id' }, {
     all: { method: 'GET', isArray: true },
     get: { method: 'GET', isArray: false },
+    lock: { method: 'GET', isArray: false, params: {controller: 'lock'} },
     create: { method: 'POST' },
     update: { method: 'PATCH' },
     delete: { method: 'DELETE' }

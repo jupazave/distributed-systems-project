@@ -31,6 +31,12 @@ export default function(sequelize, DataTypes) {
             hooks: true,
             foreignKey: 'user_id'
           },
+          editor: {
+            type: 'belongsTo',
+            model: 'User',
+            hooks: true,
+            foreignKey: 'editor_id'
+          },
         }
       }
     }

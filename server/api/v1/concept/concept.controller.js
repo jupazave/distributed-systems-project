@@ -29,6 +29,7 @@ function patchUpdates(patches, user_id) {
   return function(concept) {
     try {
       for (let key in patches) concept[key] = patches[key];
+      concept['editor_id'] = null;
     } catch(err) {
       return Promise.reject(err);
     }
@@ -135,13 +136,33 @@ export function destroy(req, res) {
  */
 export function lock(req, res) {
 
+  let user_id = req.user.id;
+
+
+  setTimeout(() => {
+
+    Concept.find({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(concept => {
+      if(!concept) return;
+      if (user_id == concept.editor_id) {
+        concept.editor_id = null;
+      }
+      return concept.save();
+    });
+
+  }, 3600);
+
   return Concept.find({
     where: {
       id: req.params.id
     }
   })
     .then(concept => {
-      concept.editable = false;
+      concept.editor_id = user_id;
       return concept.save();
     }).then(res.status(204).end())
     .catch(validationError(res));
@@ -158,7 +179,7 @@ export function unlock(req, res) {
     }
   })
     .then(concept => {
-      concept.editable = true;
+      concept.editor_id = null;
       return concept.save();
     }).then(res.status(204).end())
     .catch(validationError(res));

@@ -17,6 +17,9 @@ export class ConceptsEditComponent {
 
   $onInit(){
     this.topic = this.Topic.get({ id: this.$stateParams.topic_id });
+    this.topic.$promise.then(() =>{
+      this.topic.$lock();
+    })
     this.concept = this.Concept.get({ topic_id: this.$stateParams.topic_id,  id: this.$stateParams.id });
   }
 
