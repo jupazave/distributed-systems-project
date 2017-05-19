@@ -28,9 +28,16 @@ import UsersNewComponent from './users-new/users-new.component';
 import UsersEditComponent from './users-edit/users-edit.component';
 import UsersViewComponent from './users-view/users-view.component';
 
+import TopicsComponent from './topics/topics.component';
+import TopicsNewComponent from './topics-new/topics-new.component';
+import TopicsEditComponent from './topics-edit/topics-edit.component';
+import TopicsViewComponent from './topics-view/topics-view.component';
+import ConceptsNewComponent from './concepts-new/concepts-new.component';
+
 // services
 
 import TopicService from '../services/topic.service';
+import ConceptService from '../services/concept.service';
 
 
 import './app.less';
@@ -38,7 +45,10 @@ import './app.less';
 angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth, mongooseError,
     account, navbar, footer, main, constants, util,
     UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
-    TopicService
+    TopicsComponent, TopicsNewComponent, TopicsEditComponent, TopicsViewComponent,
+    ConceptsNewComponent,
+    TopicService,
+    ConceptService
   ])
   .config(providers)
   .run(function($rootScope, $location, Auth) {

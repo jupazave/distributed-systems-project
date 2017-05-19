@@ -1,0 +1,45 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Temas</h3>
+    </div>
+  </div>
+
+  <div ng-show="ctrl.topics.length == 0 && ctrl.loaded" class="row">
+    <div class="col-md-12">
+      <h4 class="text-center">Crea un nuevo tema</h4>
+    </div>
+  </div>
+
+  <div ng-show="ctrl.topics && ctrl.loaded" >
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th width="10%">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="topic in ctrl.topics">
+          <td>{{topic.name}}</td>
+          <td>
+            <a ui-sref="topics-view({id: topic.id})"><i class="fa fa-eye"></i></a>
+            <a ui-sref="topics-edit({id: topic.id})"><i class="fa fa-pencil"></i></a>
+            <a ng-click="ctrl.delete(topic)" ><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <a ui-sref="topics-new" class="btn btn-primary">Nuevo Tema</a>
+    </div>
+
+  </div>
+
+</div>

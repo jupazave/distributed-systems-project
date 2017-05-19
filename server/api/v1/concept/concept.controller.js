@@ -13,7 +13,7 @@
 import jsonpatch from 'fast-json-patch';
 import {Topic, Concept, User} from '../../../sqldb';
 import { handleError } from './../utils';
-import JournalService from "./../../services/JournalService";
+import JournalService from "../../../services/JournalService";
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

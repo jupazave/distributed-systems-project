@@ -1,0 +1,45 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Conceptos: {{ctrl.topic.name}}</h3>
+    </div>
+  </div>
+
+  <div ng-show="ctrl.concepts.length == 0 && ctrl.loaded" class="row">
+    <div class="col-md-12">
+      <h4 class="text-center">Crea un nuevo concepto</h4>
+    </div>
+  </div>
+
+  <div ng-show="ctrl.concepts && ctrl.loaded" >
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th width="10%">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="concept in ctrl.concepts">
+          <td>{{concept.name}}</td>
+          <td>
+            <a ui-sref="concepts-view({id: concept.id})"><i class="fa fa-eye"></i></a>
+            <a ui-sref="concepts-edit({id: concept.id})"><i class="fa fa-pencil"></i></a>
+            <a ng-click="ctrl.delete(concept)" ><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <a ui-sref="concepts-new" class="btn btn-primary">Nuevo Concepto</a>
+    </div>
+
+  </div>
+
+</div>
