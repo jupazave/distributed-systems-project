@@ -33,6 +33,7 @@ import TopicsNewComponent from './topics-new/topics-new.component';
 import TopicsEditComponent from './topics-edit/topics-edit.component';
 import TopicsViewComponent from './topics-view/topics-view.component';
 import ConceptsNewComponent from './concepts-new/concepts-new.component';
+import ConceptsEditComponent from './concepts-edit/concepts-edit.component';
 
 // services
 
@@ -46,7 +47,7 @@ angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, u
     account, navbar, footer, main, constants, util,
     UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
     TopicsComponent, TopicsNewComponent, TopicsEditComponent, TopicsViewComponent,
-    ConceptsNewComponent,
+    ConceptsNewComponent, ConceptsEditComponent,
     TopicService,
     ConceptService
   ])

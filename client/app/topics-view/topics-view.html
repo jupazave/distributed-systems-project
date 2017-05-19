@@ -25,8 +25,7 @@
         <tr ng-repeat="concept in ctrl.concepts">
           <td>{{concept.name}}</td>
           <td>
-            <a ui-sref="concepts-view({id: concept.id})"><i class="fa fa-eye"></i></a>
-            <a ui-sref="concepts-edit({id: concept.id})"><i class="fa fa-pencil"></i></a>
+            <a ui-sref="concepts-edit({topic_id: ctrl.topic.id, id: concept.id})"><i class="fa fa-pencil"></i></a>
             <a ng-click="ctrl.delete(concept)" ><i class="fa fa-trash"></i></a>
           </td>
         </tr>

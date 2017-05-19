@@ -15,7 +15,6 @@ export class TopicsViewComponent {
     this.$stateParams = $stateParams;
     this.loaded = false;
 
-
   }
 
   $onInit() {
@@ -24,6 +23,13 @@ export class TopicsViewComponent {
     this.concepts.$promise.then(() => {
       this.loaded = true;
     });
+  }
+
+  delete(concept) {
+    concept.$remove().then(() => {
+      this.concepts.splice(this.concepts.indexOf(concept), 1);
+    });
+
   }
 }
 
