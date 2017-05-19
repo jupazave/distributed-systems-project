@@ -3,8 +3,8 @@
 export default function($stateProvider) {
   'ngInject';
   $stateProvider
-    .state('concept-new', {
+    .state('concepts-new', {
       url: '/topic/:topic_id/concept/new',
-      template: '<concept-new></concept-new>'
+      template: '<concepts-new></concepts-new>'
     });
 }

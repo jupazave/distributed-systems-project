@@ -14,4 +14,7 @@ router.put('/:id', isAuthenticated(), controller.edit);
 router.patch('/:id', isAuthenticated(), controller.edit);
 router.delete('/:id', isAuthenticated(), controller.destroy);
 
+
+  app.use('/api/v1/topics/:topic_id/concepts', require('./api/v1/concept'));
+
 module.exports = router;

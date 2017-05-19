@@ -19,16 +19,17 @@ export class ConceptsNewComponent {
   }
 
   $onInit(){
-    this.group = new this.Concept();
-    this.group = new this.Concept();
+    this.topic = this.Topic.get({ id: this.$stateParams.topic_id });
+    this.concept = new this.Concept();
   }
 
   save(form) {
+    this.concept.topic_id = this.topic.id;
     this.submitted = true;
     if(!form.$valid) return;
-    this.group.$save(() => {
-      this.$state.go('concepts');
-    }).catch((err) => {
+    this.concept.$save(() => {
+      this.$state.go('topics-view', {id : this.topic.id});
+    }, {topic_id : this.topic.id}).catch((err) => {
       angular.forEach(err.data.errors, (value, key) => {
         form[value.path].$setValidity('mongoose', false);
         this.errors[value.path] = value.message;

@@ -13,6 +13,7 @@ export class TopicsViewComponent {
     this.Concept = Concept;
     this.$state = $state;
     this.$stateParams = $stateParams;
+    this.loaded = false;
 
 
   }
@@ -20,6 +21,9 @@ export class TopicsViewComponent {
   $onInit() {
     this.topic = this.Topic.get({ id: this.$stateParams.id });
     this.concepts = this.Concept.all({ topic_id: this.$stateParams.id });
+    this.concepts.$promise.then(() => {
+      this.loaded = true;
+    });
   }
 }
 

@@ -61,7 +61,7 @@ function removeEntity(req, res) {
 function handleEntityNotFound(res) {
   return function(concept) {
     if(!concept) {
-      throw new {msg: "Concept Not found", error: "notfound"}
+      throw {msg: "Concept Not found", error: "notfound"}
     }
     return concept;
   };
@@ -69,7 +69,7 @@ function handleEntityNotFound(res) {
 
 // Gets a list of Concepts
 export function index(req, res) {
-  return Concept.findAll()
+  return Concept.findAll({where: {topic_id: req.params.topic_id}})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
