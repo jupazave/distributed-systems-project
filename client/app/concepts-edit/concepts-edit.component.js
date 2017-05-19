@@ -7,20 +7,21 @@ import routes from './concepts-edit.routes';
 
 export class ConceptsEditComponent {
   /*@ngInject*/
-  constructor(Topic, Concept, $state, $stateParams) {
+  constructor(Topic, Concept, $state, $stateParams, Auth) {
     this.Topic = Topic;
     this.Concept = Concept;
     this.$state = $state;
     this.$stateParams = $stateParams;
+    this.getCurrentUser = Auth.getCurrentUserSync;
 
   }
 
   $onInit(){
     this.topic = this.Topic.get({ id: this.$stateParams.topic_id });
-    this.topic.$promise.then(() =>{
-      this.topic.$lock();
-    })
     this.concept = this.Concept.get({ topic_id: this.$stateParams.topic_id,  id: this.$stateParams.id });
+    this.concept.$promise.then(() =>{
+      if(this.concept.editor_id != this.getCurrentUser()) this.concept.$lock();
+    })
   }
 
   update() {

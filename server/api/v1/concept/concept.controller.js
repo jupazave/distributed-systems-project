@@ -92,10 +92,11 @@ export function create(req, res) {
 
   let body = req.body;
   body.user_id = req.user.id;
+  let user_id = req.user.id;
 
   return Concept.create(body)
     .then((concept) => {
-      JournalService.conceptAction(req.user.id, 'new', concept.name, concept.id);
+      JournalService.conceptAction(user_id, 'new', concept.name, concept.id);
       return concept;
     })
     .then(respondWithResult(res, 201))
@@ -137,13 +138,14 @@ export function destroy(req, res) {
 export function lock(req, res) {
 
   let user_id = req.user.id;
+  let id = req.params.id;
 
 
   setTimeout(() => {
 
     Concept.find({
       where: {
-        id: req.params.id
+        id: id
       }
     })
     .then(concept => {
@@ -165,7 +167,7 @@ export function lock(req, res) {
       concept.editor_id = user_id;
       return concept.save();
     }).then(res.status(204).end())
-    .catch(validationError(res));
+    .catch(handleError(res));
 }
 
 /**
@@ -182,5 +184,5 @@ export function unlock(req, res) {
       concept.editor_id = null;
       return concept.save();
     }).then(res.status(204).end())
-    .catch(validationError(res));
+    .catch(handleError(res));
 }
