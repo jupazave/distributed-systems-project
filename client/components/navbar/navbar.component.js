@@ -4,12 +4,7 @@
 import angular from 'angular';
 
 export class NavbarComponent {
-  menu = [{
-    title: 'Usuarios',
-    state: 'users',
-    admin: true,
-    user: false
-  },
+  menu = [
   {
     title: 'Temas',
     state: 'topics',

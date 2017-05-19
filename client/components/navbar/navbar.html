@@ -19,6 +19,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Iniciar Sesión</a></li>
+        <li ng-hide="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Registrarse</a></li>
         <li ng-show="$ctrl.isLoggedIn()"><p class="navbar-text">Hola {{ $ctrl.getCurrentUser().name }}</p> </li>
         <li ng-show="$ctrl.isLoggedIn()" ui-sref-active="active"><a ui-sref="settings"><i class="fa fa-cogs"></i></a></li>
         <li ng-show="$ctrl.isLoggedIn()"><a ui-sref="logout">Cerrar Sesión</a></li>

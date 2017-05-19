@@ -89,15 +89,7 @@ export function create(req, res) {
   let results = {};
 
   return newUser.save()
-    .then((user) => {
-      results.user = user;
-      return Profile.create({
-        user_id: user.id,
-        notification_email: user.email
-      });
-    })
-    .then(function(profile) {
-      let user = results.user;
+    .then(function(user) {
       var token = jwt.sign({ id: user.id }, config.jwt.secret, {
         expiresIn: 60 * 60 * 5
       });
@@ -179,23 +171,6 @@ export function changePassword(req, res) {
         return res.status(403).end();
       }
     });
-}
-
-/**
- * Disable/Enable account
- */
-export function toggle(req, res) {
-
-  return User.find({
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(user => {
-      user.enable = !user.enable;
-      return user.save();
-    }).then(res.status(204).end())
-    .catch(validationError(res));
 }
 
 /**

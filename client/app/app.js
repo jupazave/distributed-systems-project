@@ -23,11 +23,6 @@ import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
 
-import UsersComponent from './users/users.component';
-import UsersNewComponent from './users-new/users-new.component';
-import UsersEditComponent from './users-edit/users-edit.component';
-import UsersViewComponent from './users-view/users-view.component';
-
 import TopicsComponent from './topics/topics.component';
 import TopicsNewComponent from './topics-new/topics-new.component';
 import TopicsEditComponent from './topics-edit/topics-edit.component';
@@ -47,7 +42,6 @@ import './app.less';
 
 angular.module('distributedApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth, mongooseError,
     account, navbar, footer, main, constants, util,
-    UsersComponent, UsersNewComponent, UsersEditComponent, UsersViewComponent,
     TopicsComponent, TopicsNewComponent, TopicsEditComponent, TopicsViewComponent,
     ConceptsNewComponent, ConceptsEditComponent, JournalComponent,
     TopicService,
