@@ -76,6 +76,7 @@ export default function(app) {
       logFileChanges: false,
       proxy: `localhost:${config.port}`,
       ws: true,
+      ghostMode: false,
       middleware: [
         webpackDevMiddleware(compiler, {
           noInfo: false,
