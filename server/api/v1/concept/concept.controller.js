@@ -105,6 +105,8 @@ export function create(req, res) {
 
 // Updates an existing Concept in the DB
 export function edit(req, res) {
+  console.log('---< EDIT >---');
+  console.log('req.body', req.body);
   if(req.body.id) delete req.body.id;
 
   let user_id = req.user.id;
@@ -136,12 +138,13 @@ export function destroy(req, res) {
  * Lock Concept
  */
 export function lock(req, res) {
+  console.log('---< LOCK >---');
 
   let user_id = req.user.id;
   let id = req.params.id;
 
-
-  setTimeout(() => {
+  console.log('user_id: ', user_id);
+  console.log('id: ', id);
 
     Concept.find({
       where: {
@@ -150,24 +153,18 @@ export function lock(req, res) {
     })
     .then(concept => {
       if(!concept) return;
-      if (user_id == concept.editor_id) {
-        concept.editor_id = null;
+
+      if(concept.editor_id == null){
+        console.log('nadie lo estaba edtando, el que lo edita ahora es ', user_id);
+        concept.editor_id = user_id;
+        concept.save();
+        return res.end();
+      } else {
+        console.log('acceso denegado, quien lo esta editando es ', concept.editor_id);
+        return res.end();
       }
-      return concept.save();
+
     });
-
-  }, 3600);
-
-  return Concept.find({
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(concept => {
-      concept.editor_id = user_id;
-      return concept.save();
-    }).then(res.status(204).end())
-    .catch(handleError(res));
 }
 
 /**

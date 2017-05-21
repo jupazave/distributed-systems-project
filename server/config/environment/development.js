@@ -7,7 +7,7 @@ module.exports = {
 
   // Sequelize connection opions
   sequelize: {
-    uri: process.env.SEQUELIZE_URI || 'mysql://root@localhost/distributed-env',
+    uri: process.env.SEQUELIZE_URI || 'mysql://root@localhost/distributed',
     options: {
       logging: false,
       define: {
