@@ -7,7 +7,7 @@ import routes from './concepts-edit.routes';
 
 export class ConceptsEditComponent {
   /*@ngInject*/
-  constructor(Topic, Concept, $state, $stateParams, Auth, $scope, $on) {
+  constructor(Topic, Concept, $state, $stateParams, Auth) {
     this.Topic = Topic;
     this.Concept = Concept;
     this.$state = $state;
@@ -23,14 +23,6 @@ export class ConceptsEditComponent {
       if(this.concept.editor_id != this.getCurrentUser()) this.concept.$lock();
     })
   }
-
-  $scope.$on('$locationChangeStart', function(event) {
-        var answer = confirm("Are you sure you want to leave this page?")
-        if (!answer) {
-            event.preventDefault();
-        }
-    });
-
 
   update() {
     this.concept.$update(() =>  {
