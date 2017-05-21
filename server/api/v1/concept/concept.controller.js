@@ -146,6 +146,25 @@ export function lock(req, res) {
   console.log('user_id: ', user_id);
   console.log('id: ', id);
 
+  //-------
+setTimeout(() => {
+
+    Concept.find({
+      where: {
+        id: id
+      }
+    })
+    .then(concept => {
+      if(!concept) return;
+      if (user_id == concept.editor_id) {
+        concept.editor_id = null;
+      }
+      return concept.save();
+    });
+
+  }, 60000);
+  //-------
+
     Concept.find({
       where: {
         id: id
